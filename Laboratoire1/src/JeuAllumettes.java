@@ -6,43 +6,53 @@ import java.util.Scanner;
  */
 
 public class JeuAllumettes {
-    static int afficherInterface(String nomjoueur, int nballumettes){
+    private static int afficherInterface(String nomjoueur, int nballumettes, int tabJoueur[], int nbcoups) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("\nIl reste " +nballumettes + " allumettes." +
-                "\n"+ nomjoueur + ", combien d'allumettes (entre 1 et 3) voulez-vous retirer ?");
+        System.out.println("\nIl reste " + nballumettes + " allumettes." +
+                "\n" + nomjoueur + ", combien d'allumettes (entre 1 et 3) voulez-vous retirer ?");
         boolean choixNb = true;
         int allumettesEnlevees = 0;
-        while(choixNb){
+        while (choixNb) {
             allumettesEnlevees = sc.nextInt();
-            if(allumettesEnlevees >=1 && allumettesEnlevees <=3){
+            if (allumettesEnlevees >= 1 && allumettesEnlevees <= 3) {
                 choixNb = false;
-            }
-            else
+            } else
                 System.out.println("Try again");
         }
-
         nballumettes = nballumettes - allumettesEnlevees;
+
         return nballumettes;
     }
 
-    static boolean finDeParti(String nomjoueur, int nballumettes, boolean partiEnCours){
-        if(nballumettes<=0){
+    private static boolean finDeParti(String nomjoueur, int nballumettes, boolean partiEnCours, String nomjoueur1, String nomjoueur2, int tabjoueur1[], int tabjoueur2[]) {
+        if (nballumettes <= 0) {
             Scanner sc = new Scanner(System.in);
-            System.out.println(nomjoueur + " remporte la partie !");
+            System.out.println("\n" + nomjoueur + " remporte la partie !");
+            decisions(nomjoueur1, tabjoueur1);
+            decisions(nomjoueur2, tabjoueur2);
             System.out.println("\nVoulez-vous commencer une autre partie ? " +
                     "\n1 - Oui" +
                     "\n2 - Non");
             int autre = sc.nextInt();
-            if(autre == 1){
+            if (autre == 1) {
                 partiEnCours = false;
-            }
-            else{
+            } else {
                 System.out.println("Au revoir !");
                 System.exit(0);
             }
         }
         return partiEnCours;
     }
+
+    private static void decisions(String nom, int tabJoueur[]) {
+        System.out.println("Décisions " + nom + ":");
+        for (int i = 0; i < tabJoueur.length; i++) {
+            if (tabJoueur[i] != 0)
+                System.out.print(tabJoueur[i] + ", ");
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Random generator = new Random();
@@ -60,19 +70,26 @@ public class JeuAllumettes {
             nomjoueur2 = sc.nextLine();
 
             int nballumettes = generator.nextInt(80)+20;
+            int tabjoueur1[] = new int[50];
+            int tabjoueur2[] = new int[50];
 
             boolean partiEnCours = true;
+            int nbcoups = 0;
 
             while (partiEnCours) {
-                nballumettes = afficherInterface(nomjoueur1,nballumettes);
-                partiEnCours = finDeParti(nomjoueur2,nballumettes,partiEnCours);
+                nbcoups += 1;
+                int allumettesInitial = nballumettes;
+                nballumettes = afficherInterface(nomjoueur1, nballumettes, tabjoueur1, nbcoups);
+                tabjoueur1[nbcoups] = allumettesInitial - nballumettes;
+                partiEnCours = finDeParti(nomjoueur2, nballumettes, partiEnCours, nomjoueur1, nomjoueur2, tabjoueur1, tabjoueur2);
 
-                if(partiEnCours) {
-                    nballumettes = afficherInterface(nomjoueur2, nballumettes);
-                    partiEnCours = finDeParti(nomjoueur1,nballumettes,partiEnCours);
+                if (partiEnCours) {
+                    allumettesInitial = nballumettes;
+                    nballumettes = afficherInterface(nomjoueur2, nballumettes, tabjoueur2, nbcoups);
+                    tabjoueur2[nbcoups] = allumettesInitial - nballumettes;
+                    partiEnCours = finDeParti(nomjoueur1, nballumettes, partiEnCours, nomjoueur1, nomjoueur2, tabjoueur1, tabjoueur2);
                 }
             }
-
         }
     }
 }
