@@ -1,16 +1,10 @@
-import java.util.Random;
+package Personnages;
 
-public class Personnage {
+public abstract class Personnage {
     private int ptsDeVie;
     private int ptsDeDefense;
     private String nom;
-
-    /*public Personnage(){
-        Random generator = new Random();
-        ptsDeDefense = generator.nextInt(50)+50;
-        ptsDeDefense = generator.nextInt(50)+50;;
-        nom = "Super-Banane";
-    }*/
+    private boolean statut = true;
 
     public void setNom(String nom) {
         this.nom = nom;
@@ -36,4 +30,13 @@ public class Personnage {
         this.ptsDeVie = ptsDeVie;
     }
 
+    public abstract void attaquer(Personnage personnage);
+
+    public boolean isStatut() {
+        return statut;
+    }
+
+    public void setStatut(boolean statut) {
+        this.statut = statut;
+    }
 }
