@@ -1,10 +1,17 @@
 package Personnages;
 
+import Armes.Armes;
+
 public abstract class Personnage {
     private int ptsDeVie;
     private int ptsDeDefense;
     private String nom;
     private boolean statut = true;
+    private Armes armes;
+
+    public Personnage(Armes _armes){
+        this.armes = _armes;
+    }
 
     public void setNom(String nom) {
         this.nom = nom;
@@ -38,5 +45,22 @@ public abstract class Personnage {
 
     public void setStatut(boolean statut) {
         this.statut = statut;
+    }
+
+    public Armes getArmes() {
+        return armes;
+    }
+
+    public void setArmes(Armes armes) {
+        this.armes = armes;
+    }
+
+    public abstract void afficherMenuArmes();
+
+    public void prendreDegats(int degats){
+        setPtsDeVie(getPtsDeVie()-degats);
+        if(getPtsDeVie()<0)
+            setPtsDeVie(0);
+        System.out.println(getPtsDeVie());
     }
 }

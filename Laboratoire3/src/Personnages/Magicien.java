@@ -1,12 +1,16 @@
 package Personnages;
 import java.util.Random;
+import java.util.Scanner;
+
+import Armes.*;
 import Sorts.Sort;
 
-public abstract class Magicien extends Personnage {
+public abstract class Magicien extends Personnage{
     private int ptsDeMagie;
     private Sort[] tabSorts = new Sort[2];
 
     public Magicien(){
+        super(new Baguette());
         setPtsDeDefense(1);
         setPtsDeVie(60);
     }
@@ -50,5 +54,32 @@ public abstract class Magicien extends Personnage {
 
     public void setPtsDeMagie(int ptsDeMagie) {
         this.ptsDeMagie = ptsDeMagie;
+    }
+
+    public void afficherMenuArmes(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Quel arme voulez-vous?");
+        System.out.println("1 - Baguette" +
+                "\n2 - Sceptre" +
+                "\n3 - Masamune" +
+                "\n4 - Épée magique");
+        char choixArme = sc.nextLine().charAt(0);
+        switch (choixArme) {
+            case '1':
+                setArmes(new Baguette());
+                break;
+            case '2':
+                setArmes(new Sceptre());
+                break;
+            case '3':
+                setArmes(new Masamune());
+                break;
+            case '4':
+                setArmes(new Épée_magique());
+                break;
+            default:
+                setArmes(new Baguette());
+                break;
+        }
     }
 }

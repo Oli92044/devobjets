@@ -1,5 +1,8 @@
 package Personnages;
+import Armes.*;
 import Sorts.*;
+
+import java.util.Scanner;
 
 public final class MagicienNoir extends Magicien {
 

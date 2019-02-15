@@ -1,16 +1,25 @@
 package Personnages;
 
+import Armes.*;
+
+
 public abstract class Guerrier extends Personnage {
     private int ptsDeForce;
 
+    public Guerrier(){
+        super(new Épée_lourde());
+    }
+
     public void attaquer(Personnage personnage) {
         System.out.println("\n"+getNom() + " attaque !");
-        System.out.print(personnage.getNom() + " perd " + ((ptsDeForce * 2) - personnage.getPtsDeDefense()) + " points de vie. Il lui en reste ");
-        personnage.setPtsDeVie(personnage.getPtsDeVie() - ((ptsDeForce * 2) - personnage.getPtsDeDefense()));
-        if(personnage.getPtsDeVie()<0)
-            personnage.setPtsDeVie(0);
+
+        int degats = (ptsDeForce * 2) - personnage.getPtsDeDefense();
+        System.out.print(personnage.getNom() + " perd " + degats + " points de vie. Il lui en reste ");
+        personnage.prendreDegats(degats);
         System.out.println(personnage.getPtsDeVie());
     }
+
+
 
     public int getPtsDeForce() {
         return ptsDeForce;
@@ -19,4 +28,5 @@ public abstract class Guerrier extends Personnage {
     public void setPtsDeForce(int ptsDeForce) {
         this.ptsDeForce = ptsDeForce;
     }
+
 }
