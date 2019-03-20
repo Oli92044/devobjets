@@ -59,7 +59,6 @@ public class LinkedList
                 i++;
             }
             actuel.next = actuel.next.next;
-            System.out.println("Success! Node at index "+index+" deleted.");
             nbListe--;
         }
     }
@@ -74,11 +73,10 @@ public class LinkedList
     }
 
     public void afficher(){
-        Noeud current = tete;
-        while(current.next!=null){
-            System.out.println(current.contenu);
-            current = current.next;
+        Noeud actuel = tete;
+        while(actuel.next!=null){
+            System.out.println(actuel.contenu);
+            actuel = actuel.next;
         }
-        System.out.println(current.contenu);
     }
 }

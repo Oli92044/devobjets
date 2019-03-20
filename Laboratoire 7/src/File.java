@@ -37,7 +37,6 @@ public class File {
         return popper;
     }
 
-
     private void reduceTableau() {
         if (size() <= (elements.length / 4)) {
             elements = Arrays.copyOf(elements, elements.length / 2);
