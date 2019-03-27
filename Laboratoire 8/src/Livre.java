@@ -9,10 +9,11 @@ public class Livre implements Comparable<Livre>{
     String ISBN, titre, sousTitre, auteur, maisonEdition;
     int anneePub;
 
-    public Livre(String _auteur, String _maisonEdition, int _anneePub){
+    public Livre(String _auteur, String _maisonEdition, String _titre , int _anneePub){
         auteur = _auteur;
         anneePub = _anneePub;
         maisonEdition = _maisonEdition;
+        titre = _titre;
     }
 
     public static Livre[] creerListe(){
@@ -22,22 +23,31 @@ public class Livre implements Comparable<Livre>{
         for (int i = 0; i < listLivre.length; i++) {
             String auteur = Livre.obtenirNom();
             String maison = Livre.obtenirMaison();
+            String titre = Livre.obtenirTitre();
             int anne = generator.nextInt(2019);
 
-            listLivre[i] = new Livre(auteur, maison, anne);
+            listLivre[i] = new Livre(auteur, maison, titre, anne);
         }
         return listLivre;
     }
 
     public static void show(Livre[] listLivre){
         for (int i = 0; i < listLivre.length; i++){
-            System.out.println(listLivre[i].auteur +", " + listLivre[i].maisonEdition +", ("+ listLivre[i].anneePub + ")");
+            System.out.println("Auteur : "+listLivre[i].auteur +
+                    "\nMaison édition : " + listLivre[i].maisonEdition +
+                    "\nTitre : " + listLivre[i].titre +
+                    "\nAnnée : "+ listLivre[i].anneePub );
+            System.out.println();
         }
     }
 
     public static void show(ArrayList<Livre> listLivre){
-        for (int i = 0; i < listLivre.size(); i++){
-            System.out.println(listLivre.get(i).auteur +", " + listLivre.get(i).maisonEdition +", ("+ listLivre.get(i).anneePub + ")");
+        for (int i = 0; i < listLivre.size(); i++) {
+            System.out.println("Auteur : " + listLivre.get(i).auteur +
+                    "\nMaison édition : " + listLivre.get(i).maisonEdition +
+                    "\nTitre : " + listLivre.get(i).titre +
+                    "\nAnnée : " + listLivre.get(i).anneePub);
+            System.out.println();
         }
     }
 
@@ -61,6 +71,13 @@ public class Livre implements Comparable<Livre>{
         String nomMaison = "Alire Akuma Boomerang ERPI Merlin Pastèque Varia XYZ Veuve";
         String tabMaison[] = nomMaison.split(" ");
         return tabMaison[generator.nextInt(tabMaison.length)];
+    }
+
+    public static String obtenirTitre(){
+        Random generator = new Random();
+        String titres = "Lord of the Rings,Harry Potter,Kid Paddle,Asterix,Game Over,Obelix,Geronimo Stilton,Will Gundy,Popcorn,Apple,Star Wars";
+        String tabTitres[] = titres.split(",");
+        return tabTitres[generator.nextInt(tabTitres.length)];
     }
 
     public static Livre[] selection(Livre[] tabLivre) {
