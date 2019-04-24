@@ -27,9 +27,9 @@ public class centreTri {
         this.qtHumain = 100;
     }
 
-    public static  centreTri[] creerCentreTris(int nbCentreTris) {
+    public static centreTri[] creerCentreTris(int nbCentreTris) {
         centreTri[] centreTri = new centreTri[nbCentreTris];
-        for (int i = 0 ; i < nbCentreTris ; nbCentreTris++) {
+        for (int i = 0 ; i < nbCentreTris ; i++) {
             centreTri[i] = new centreTri();
         }
         return centreTri;
@@ -39,9 +39,7 @@ public class centreTri {
 
         Random random = new Random();
         if (centreTri.file.size() >= 10) {
-
             switch (random.nextInt(5)) {
-
                 case 0 :
                 case 1 :
                 case 2 :

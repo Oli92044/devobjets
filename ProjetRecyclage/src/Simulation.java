@@ -1,6 +1,7 @@
 import Planete.*;
 import Recyclage.*;
 import Transport.*;
+
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -89,11 +90,16 @@ public class Simulation {
 
         //afficherVaisseau();
 
-        //typeA typeA = new typeA();
+        typeA typeA = new typeA();
 
-        //ArrayList<dechets> arrayDechets = typeA.qtDechetRamasser(tabVaisseaux[1]);
+        tabVaisseaux[1].qtDechetRamasser(typeA);
 
-        //Collections.sort(arrayDechets);
+        ArrayList<dechets> Adechets = tabVaisseaux[1].getArrayDechets();
 
+        for (int i = 0; i<Adechets.size();i++) {
+            System.out.println("Nom : " + Adechets.get(i).getNom());
+        }
+        System.out.println(Adechets.size());
+        System.out.println(typeA.getPctGadolinium());
     }
 }

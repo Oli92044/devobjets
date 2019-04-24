@@ -5,6 +5,6 @@ import java.util.Random;
 public final class typeC extends planete {
 
     public typeC(){
-        super(10,20,40, 25, 5);
+        super(10,30,70, 95, 100);
     }
 }

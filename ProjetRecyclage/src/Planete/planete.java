@@ -9,8 +9,12 @@ public abstract class planete {
 
     private int pctPlutonium, pctThulium, pctGadolinium, pctTerbium, pctNeptunium;
 
-    public planete(int pctPlutonium, int pctThulium, int pctGadolinium, int pctTerbium, int pctNeptunium){
-
+    public planete(int pctPlutonium, int pctThulium, int pctGadolinium, int pctTerbium, int pctNeptunium) {
+        this.pctPlutonium = pctPlutonium;
+        this.pctThulium = pctThulium;
+        this.pctGadolinium = pctGadolinium;
+        this.pctTerbium = pctTerbium;
+        this.pctNeptunium = pctNeptunium;
     }
 
     public int getPctPlutonium() {
@@ -77,27 +81,6 @@ public abstract class planete {
         tabPlanete[4] = typeE;
 
         return tabPlanete;
-    }
-
-    public ArrayList<dechets> qtDechetRamasser(vaisseau vaisseau) {
-
-        Random rand = new Random();
-        ArrayList<dechets> tabDechets = new ArrayList<>();
-        for (int i =0; i< vaisseau.getQuantite(); i++) {
-            int quantite = rand.nextInt(100);
-            if (quantite < pctTerbium) {
-                tabDechets.add(new terbium());
-            } else if (quantite < pctGadolinium) {
-                tabDechets.add(new gadolinium());
-            } else if (quantite < pctThulium) {
-                tabDechets.add(new thulium());
-            } else if (quantite < pctNeptunium) {
-                tabDechets.add(new neptunium());
-            } else if (quantite < pctPlutonium) {
-                tabDechets.add(new plutonium());
-            }
-        }
-        return tabDechets;
     }
 
     public int qtHumain(int capacite) {

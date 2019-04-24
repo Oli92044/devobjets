@@ -5,6 +5,6 @@ import java.util.Random;
 public final class typeB extends planete {
 
     public typeB(){
-        super(5,40,25, 20, 10);
+        super(5,45,70, 90, 100);
     }
 }
