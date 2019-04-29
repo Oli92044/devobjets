@@ -71,6 +71,31 @@ public class Simulation {
             System.out.println("#" + (i+1) + " -> Type : " + tab[i].getType() + "(" + tab[i].getQuantite() + ")");
     }
 
+    public static void associerPlaneteVaisseau(vaisseau[] tabVaisseau, Random generator){
+        for(vaisseau vaisseau : tabVaisseau){
+            int typePlanete = generator.nextInt(5) + 1;
+            switch (typePlanete){
+                case 1 :
+                    vaisseau.associerPlanete(new typeA());break;
+                case 2 :
+                    vaisseau.associerPlanete(new typeB());break;
+                case 3 :
+                    vaisseau.associerPlanete(new typeC());break;
+                case 4 :
+                    vaisseau.associerPlanete(new typeD());break;
+                case 5 :
+                    vaisseau.associerPlanete(new typeE());break;
+            }
+            vaisseau.ramasserDechetsPlanete();
+        }
+    }
+
+    /*public static void remplirVaisseau(vaisseau[] tabVaisseau){
+        for(vaisseau vaisseau : tabVaisseau){
+            vaisseau.ramasserDechetsPlanete();
+        }
+    }*/
+
     public static void main(String[] args) throws InterruptedException{
 
         Scanner sc = new Scanner(System.in);
@@ -78,28 +103,31 @@ public class Simulation {
 
         System.out.println("\nBienvenue dans la simulation de [...] Opération Déchet [...]\n\n");
 
+        //Quantité de vaisseaux et centres de tri
         int nbShip = obtenirValeur(1,1000,"vaisseaux",sc);
         System.out.println();
         int nbCentreTri = obtenirValeur(1,100,"centres de tri", sc);
 
+        //Création des objets nécessaires
         vaisseau[] tabVaisseaux = vaisseau.creerVaisseaux(nbShip,generator);
-
         centreTri[] tabCentreTri = centreTri.creerCentreTris(nbCentreTri);
+        typeA mars = new typeA();
+        typeB venus = new typeB();
+        typeC terre = new typeC();
+        typeD saturne = new typeD();
+        typeE uranus = new typeE();
 
-        //infoVaisseau(tabVaisseaux);
+        //Affichage (facultatif)
+        afficherVaisseau();
 
-        //afficherVaisseau();
+        //Lancement
+        boolean simulation = true;
+        while(simulation) {
+            associerPlaneteVaisseau(tabVaisseaux, generator);
 
-        typeA typeA = new typeA();
-
-        tabVaisseaux[1].qtDechetRamasser(typeA);
-
-        ArrayList<dechets> Adechets = tabVaisseaux[1].getArrayDechets();
-
-        for (int i = 0; i<Adechets.size();i++) {
-            System.out.println("Nom : " + Adechets.get(i).getNom());
+            if(true)
+                simulation = false;
         }
-        System.out.println(Adechets.size());
-        System.out.println(typeA.getPctGadolinium());
+
     }
 }

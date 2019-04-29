@@ -10,6 +10,7 @@ public abstract class vaisseau {
     private boolean statut;
     private String type;
     private ArrayList<dechets> arrayDechets;
+    private planete planeteAssocier;
 
     public vaisseau(int quantite, boolean statut, String type) {
         this.quantite = quantite;
@@ -54,33 +55,40 @@ public abstract class vaisseau {
         return arrayDechets;
     }
 
-    public void setArrayDechets(ArrayList<dechets> arrayDechets) {
-        this.arrayDechets = arrayDechets;
-    }
-
-    public void qtDechetRamasser(planete planete) {
+    public void ramasserDechetsPlanete() {
 
         for (int i = 0; i < quantite; i++) {
             Random generator = new Random();
             int quantite = generator.nextInt(100);
-            if (quantite < planete.getPctPlutonium()) {
+            if (quantite < planeteAssocier.getPctPlutonium()) {
                 arrayDechets.add(new plutonium());
-            } else if (quantite < planete.getPctThulium()) {
+            } else if (quantite < planeteAssocier.getPctThulium()) {
                 arrayDechets.add(new thulium());
-            } else if (quantite < planete.getPctGadolinium()) {
+            } else if (quantite < planeteAssocier.getPctGadolinium()) {
                 arrayDechets.add(new gadolinium());
-            } else if (quantite < planete.getPctTerbium()) {
+            } else if (quantite < planeteAssocier.getPctTerbium()) {
                 arrayDechets.add(new terbium());
-            } else if (quantite < planete.getPctNeptunium()) {
+            } else if (quantite < planeteAssocier.getPctNeptunium()) {
                 arrayDechets.add(new neptunium());
             }
         }
-        Collections.sort(arrayDechets);
+
+    }
+
+    public void ramasserDechetsCentreTri(ArrayList<dechets> arrayDechetsTri){
+        this.arrayDechets = arrayDechetsTri;
     }
 
     public ArrayList<dechets> viderVaisseau(){
         ArrayList<dechets> arrayDonner = arrayDechets;
+        Collections.sort(arrayDonner);
         arrayDechets.clear();
+
         return arrayDonner;
     }
+
+    public void associerPlanete(planete planeteAssocier) {
+        this.planeteAssocier = planeteAssocier;
+    }
+
 }
