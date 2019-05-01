@@ -76,15 +76,22 @@ public abstract class vaisseau {
     }
 
     public void ramasserDechetsCentreTri(ArrayList<dechets> arrayDechetsTri){
+        statut = true;
         this.arrayDechets = arrayDechetsTri;
+        statut = false;
     }
 
-    public ArrayList<dechets> viderVaisseau(){
-        ArrayList<dechets> arrayDonner = arrayDechets;
-        Collections.sort(arrayDonner);
+    public void viderVaisseau(centreTri[] tabCentreTri){
+        statut = false;
+        int positionTableau = 0;
+        for (int i = 0; i<tabCentreTri.length;i++){
+            if (!tabCentreTri[i].verifierPleinDechet()){
+                positionTableau = i;
+                break;
+            }
+        }
+        tabCentreTri[positionTableau].remplirPiles(arrayDechets,this);
         arrayDechets.clear();
-
-        return arrayDonner;
     }
 
     public void associerPlanete(planete planeteAssocier) {
