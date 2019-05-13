@@ -16,7 +16,7 @@ public abstract class vaisseau {
         this.quantite = quantite;
         this.statut = statut;
         this.type = type;
-        arrayDechets = new ArrayList<>();
+        this.arrayDechets = new ArrayList<>();
     }
 
     public int getQuantite() {
@@ -40,13 +40,17 @@ public abstract class vaisseau {
         vaisseau[] tabVaisseau = new vaisseau[nbVaisseau];
 
         for (int i = 0; i < tabVaisseau.length; i++) {
-            int hazard = generator.nextInt(3);
+            int hazard = generator.nextInt(5);
             if (hazard == 0)
                 tabVaisseau[i] = new lightShip();
             else if (hazard == 1)
                 tabVaisseau[i] = new mediumShip();
             else if (hazard == 2)
                 tabVaisseau[i] = new heavyShip();
+            else if (hazard ==3)
+                tabVaisseau[i] = new lightShipHumain();
+            else if (hazard ==4)
+                tabVaisseau[i] = new mediumShipHumain();
         }
         return tabVaisseau;
     }
@@ -81,21 +85,58 @@ public abstract class vaisseau {
         statut = false;
     }
 
-    public void viderVaisseau(centreTri[] tabCentreTri){
+    public void viderVaisseau(LinkedList<centreTri> tabCentreTri){
         statut = false;
         int positionTableau = 0;
-        for (int i = 0; i<tabCentreTri.length;i++){
-            if (!tabCentreTri[i].verifierPleinDechet()){
+        for (int i = 0; i<tabCentreTri.size();i++){
+            if (tabCentreTri.get(i).isStatut()){
                 positionTableau = i;
                 break;
             }
         }
-        tabCentreTri[positionTableau].remplirPiles(arrayDechets,this);
+        Collections.sort(arrayDechets);
+
+        tabCentreTri.get(positionTableau).remplirPiles(arrayDechets,this);
         arrayDechets.clear();
     }
 
-    public void associerPlanete(planete planeteAssocier) {
-        this.planeteAssocier = planeteAssocier;
+    public void associerPlanete(Random generator) {
+        if (statut) {
+            int typePlanete = generator.nextInt(5) + 1;
+            switch (typePlanete) {
+                case 1:
+                    planeteAssocier = (new typeA());
+                    break;
+                case 2:
+                    planeteAssocier = (new typeB());
+                    break;
+                case 3:
+                    planeteAssocier = (new typeC());
+                    break;
+                case 4:
+                    planeteAssocier = (new typeD());
+                    break;
+                case 5:
+                    planeteAssocier = (new typeE());
+                    break;
+
+                default:
+                    planeteAssocier = (new typeA());
+                    break;
+            }
+        }
+    }
+
+    public void viderVaisseauHumain(LinkedList<centreTri> tabCentreTri){
+        statut = false;
+        int positionTableau = 0;
+        for (int i = 0; i<tabCentreTri.size();i++){
+            if (tabCentreTri.get(i).isStatut()){
+                positionTableau = i;
+                break;
+            }
+        }
+        tabCentreTri.get(positionTableau).setQtHumain(getQuantite());
     }
 
 }

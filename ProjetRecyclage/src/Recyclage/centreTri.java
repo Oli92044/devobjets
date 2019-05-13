@@ -14,79 +14,42 @@ public class centreTri {
     private Stack<thulium> pileThu = new Stack<>();
     private LinkedList<vaisseau> file = new LinkedList<>();
     private int qtHumain;
-    private int longeurFile;
+    private boolean statut;
+    private Random generator = new Random();
 
 
-    public centreTri(int longeurFile) {
-        this.qtHumain = 100;
-        this.longeurFile = longeurFile;
-    }
-
-    public Stack<plutonium> getPilePluto() {
-        return pilePluto;
-    }
-
-    public Stack<neptunium> getPileNep() {
-        return pileNep;
-    }
-
-    public Stack<gadolinium> getPileGad() {
-        return pileGad;
-    }
-
-    public Stack<terbium> getPileTer() {
-        return pileTer;
-    }
-
-    public Stack<thulium> getPileThu() {
-        return pileThu;
+    public centreTri() {
+        this.qtHumain = 0;
+        this.statut = true;
     }
 
     public LinkedList<vaisseau> getFile() {
         return file;
     }
 
-    public int getQtHumain() {
-        return qtHumain;
+    public void setQtHumain(int qtHumain) {
+        this.qtHumain += qtHumain;
+    }
+
+    public boolean isStatut(){
+        return statut;
     }
 
     //
 
-    public static centreTri[] creerCentreTris(int nbCentreTris, int nbShip) {
-        centreTri[] centreTri = new centreTri[nbCentreTris];
-        //Longueur selon nombre de vaisseaux (reste à voir si constant)
+    public static LinkedList<centreTri> creerCentreTris(int nbCentreTris) {
+        LinkedList<centreTri> linkCentreTri = new LinkedList<>();
         for (int i = 0; i < nbCentreTris; i++) {
-            centreTri[i] = new centreTri(Math.round((float) (nbCentreTris / nbShip)));
+            linkCentreTri.add(new centreTri());
         }
-        return centreTri;
+        return linkCentreTri;
     }
 
-    public void MaxVaisseau(centreTri centreTri) {
-
-        Random random = new Random();
-        if (centreTri.file.size() >= 10) {
-            switch (random.nextInt(5)) {
-                case 0:
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-            }
+    public void verifierPlein() {
+        if (pileGad.size() == 100 || pileNep.size() == 100 || pilePluto.size() == 100 || pileTer.size() == 100 || pileThu.size() == 100 || qtHumain==10000) {
+            statut = false;
         }
-    }
 
-    public boolean verifierPleinFile() {
-        boolean plein = false;
-        if (file.size() >= this.longeurFile)
-            plein = true;
-        return plein;
-    }
-
-    public boolean verifierPleinDechet() {
-        if (pileGad.capacity() == 100 || pileNep.capacity() == 100 || pilePluto.capacity() == 100 || pileTer.capacity() == 100 || pileThu.capacity() == 100) {
-            return true;
-        } else
-            return false;
     }
 
     public void remplirPiles(ArrayList<dechets> arrayDechets, vaisseau v) {
@@ -106,58 +69,92 @@ public class centreTri {
             }
         }
 
-        /*File est maintenant une LinkedList au lieu d'une PriorityQueue*/
         file.add(v);
+        if(file.size()==10)
+            filePleine();
+
     }
 
     public void envoyerDechetsRejete(ArrayList<dechets> dechets){
         try {
             file.getFirst().ramasserDechetsCentreTri(dechets);
+            file.getFirst().associerPlanete(generator);
+            file.pollFirst();
         } catch (NullPointerException ex){
             System.out.println("NullPointerExeption lors de : Ramasser dechets recyclés du centre de tri");
+        } catch (EmptyStackException ex){
+            System.out.println("EmptyStack lors de : Ramasser dechets recyclés du centre de tri");
         }
     }
 
+    public void filePleine(){
+        file.getFirst().associerPlanete(generator);
+        file.pollFirst();
+    }
+
     public void recycler() {
-        if (verifierPleinDechet()) {
-            //recycler la pile pleine et l'envoyer dans le premier vaisseau de la file vers le prochain centre de tri
-            if (pileGad.capacity() <= 100) {
+        verifierPlein();
+        if (!statut) {
+            if (pileGad.size() == 100) {
                 for(int i = 0;i<100-(new gadolinium().getPctRecycler());i++) {
                     pileGad.pop();
                 }
-                pileGad.clear();
                 ArrayList<dechets> dechetsArrayList = new ArrayList<>(pileGad);
+                pileGad.clear();
                 envoyerDechetsRejete(dechetsArrayList);
-            } else if (pileNep.capacity() <= 100) {
+            } else if (pileNep.size() == 100) {
                 for(int i = 0;i<100-(new neptunium().getPctRecycler());i++) {
                     pileNep.pop();
                 }
-                pileNep.clear();
                 ArrayList<dechets> dechetsArrayList = new ArrayList<>(pileNep);
+                pileNep.clear();
                 envoyerDechetsRejete(dechetsArrayList);
-            } else if (pilePluto.capacity() <= 100) {
+            } else if (pilePluto.size() == 100) {
                 for(int i = 0;i<100-(new plutonium().getPctRecycler());i++) {
                     pilePluto.pop();
                 }
-                pilePluto.clear();
                 ArrayList<dechets> dechetsArrayList = new ArrayList<>(pilePluto);
+                pilePluto.clear();
                 envoyerDechetsRejete(dechetsArrayList);
-            } else if (pileTer.capacity() <= 100) {
+            } else if (pileTer.size() == 100) {
                 for(int i = 0;i<100-(new terbium().getPctRecycler());i++) {
                     pileTer.pop();
                 }
-                pileTer.clear();
                 ArrayList<dechets> dechetsArrayList = new ArrayList<>(pileTer);
+                pileTer.clear();
                 envoyerDechetsRejete(dechetsArrayList);
-            } else if (pileThu.capacity() <= 100) {
+            } else if (pileThu.size() == 100) {
                 for(int i = 0;i<100-(new thulium().getPctRecycler());i++) {
                     pileThu.pop();
                 }
-                pileThu.clear();
                 ArrayList<dechets> dechetsArrayList = new ArrayList<>(pileThu);
+                pileThu.clear();
                 envoyerDechetsRejete(dechetsArrayList);
             }
         }
     }
+
+    public void combienDeDechets(){
+        System.out.println("Nombre de gadolinium : " + pileGad.size());
+        System.out.println("Nombre de neptunium : " + pileNep.size());
+        System.out.println("Nombre de plutonium : " + pilePluto.size());
+        System.out.println("Nombre de terbium : " + pileTer.size());
+        System.out.println("Nombre de thulium : " + pileThu.size());
+        System.out.println("Nombre d'humains : " + qtHumain);
+    }
+
+    public int[] tabNombreDechet(){
+        int[] tabQuantite = new int[7];
+        tabQuantite[0] = pileGad.size();
+        tabQuantite[1] = pileNep.size();
+        tabQuantite[2] = pilePluto.size();
+        tabQuantite[3] = pileTer.size();
+        tabQuantite[4] = pileThu.size();
+        tabQuantite[5] = qtHumain;
+        tabQuantite[6] = pileGad.size()+pileNep.size()+pilePluto.size()+pileTer.size()+pileThu.size();
+
+        return tabQuantite;
+    }
+
 
 }

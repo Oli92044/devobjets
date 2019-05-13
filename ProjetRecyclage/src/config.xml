@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?><!--
+  ~ Created by Olivier Blackburn on 08/05/19 3:49 PM.
+  -->
+<simulation>
+    <planete>
+        <type id="typeA">
+            <pctPlutonium>40</pctPlutonium>
+            <pctThulium>60</pctThulium>
+            <pctGadolinium>70</pctGadolinium>
+            <pctTerbium>75</pctTerbium>
+            <pctNeptunium>100</pctNeptunium>
+        </type>
+        <type id="typeB">
+            <pctPlutonium>5</pctPlutonium>
+            <pctThulium>45</pctThulium>
+            <pctGadolinium>70</pctGadolinium>
+            <pctTerbium>90</pctTerbium>
+            <pctNeptunium>100</pctNeptunium>
+        </type>
+        <type id="typeC">
+            <pctPlutonium>10</pctPlutonium>
+            <pctThulium>30</pctThulium>
+            <pctGadolinium>70</pctGadolinium>
+            <pctTerbium>95</pctTerbium>
+            <pctNeptunium>100</pctNeptunium>
+        </type>
+        <type id="typeD">
+            <pctPlutonium>25</pctPlutonium>
+            <pctThulium>30</pctThulium>
+            <pctGadolinium>50</pctGadolinium>
+            <pctTerbium>90</pctTerbium>
+            <pctNeptunium>100</pctNeptunium>
+        </type>
+        <type id="typeE">
+            <pctPlutonium>20</pctPlutonium>
+            <pctThulium>30</pctThulium>
+            <pctGadolinium>55</pctGadolinium>
+            <pctTerbium>60</pctTerbium>
+            <pctNeptunium>100</pctNeptunium>
+        </type>
+    </planete>
+    <dechets>
+        <sorte id="gadolinium">
+            <nom>gadolinium</nom>
+            <massevolumique>7.91</massevolumique>
+            <pctRecycler>87</pctRecycler>
+        </sorte>
+        <sorte id="neptunium">
+            <nom>neptunium</nom>
+            <massevolumique>20.25</massevolumique>
+            <pctRecycler>17</pctRecycler>
+        </sorte>
+        <sorte id="plutonium">
+            <nom>plutonium</nom>
+            <massevolumique>19816</massevolumique>
+            <pctRecycler>32</pctRecycler>
+        </sorte>
+        <sorte id="terbium">
+            <nom>terbium</nom>
+            <massevolumique>8.23</massevolumique>
+            <pctRecycler>63</pctRecycler>
+        </sorte>
+        <sorte id="thulium">
+            <nom>thulium</nom>
+            <massevolumique>9.32</massevolumique>
+            <pctRecycler>72</pctRecycler>
+        </sorte>
+    </dechets>
+    <vaisseau>
+        <ship id="lightShip">
+            <quantite>10</quantite>
+            <statut>true</statut>
+            <type>Leger</type>
+        </ship>
+        <ship id="mediumShip">
+            <quantite>20</quantite>
+            <statut>true</statut>
+            <type>Moyen</type>
+        </ship>
+        <ship id="heavyShip">
+            <quantite>30</quantite>
+            <statut>true</statut>
+            <type>Lourd</type>
+        </ship>
+        <ship id="lightShipHumain">
+            <quantite>10</quantite>
+            <statut>true</statut>
+            <type>Leger Humain</type>
+        </ship>
+        <ship id="mediumShipHumain">
+            <quantite>20</quantite>
+            <statut>true</statut>
+            <type>Medium Humain</type>
+        </ship>
+    </vaisseau>
+</simulation>
